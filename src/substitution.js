@@ -37,18 +37,14 @@ const substitutionModule = (function () {
       // decoding
       else if (!encode) {
         // find index of letter in real alphabet
-        const index = substitution.indexOf(
-          substitution.find(letter => letter === input[i])
-        );
+        const index = substitution.indexOf(input[i]);
         // add correct letter from alphabet
         result += realAlph[index];
       } 
       // encoding.
       else {
         // find index of letter in given alphabet
-        const index = realAlph.indexOf(
-          realAlph.find(letter => letter === input[i])
-        );
+        const index = realAlph.indexOf(input[i]);
         // add correct letter from given alphabet
         result += substitution[index];
       }
