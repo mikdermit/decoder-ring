@@ -62,46 +62,13 @@ const polybiusModule = (function () {
     55: "z"
   };
 
-  function polybius(input, encode = true) {
-    // convert input to lower case
-    input = input.toLowerCase();
-    // empty string for result
-    let result = "";
-    // decoding
-    if (!encode) {
-      // loop through numbers
-      for (i = 0; i < input.length; i += 2) {
-        // make sure length of numbers isn't odd
-        if (input.split(" ").join("").length % 2 === 1) {
-          return false;
-        } // check if input is a space
-        else if (input[i] === " ") {
-          // add space to result
-          result += input[i];
-          // reduce i
-          i -= 1;
-        } else {
-          // get number pair
-          const num = `${input[i]}${input[i + 1]}`;
-          // find letter matching number and add to result
-          result += decodeKey[num];
-        }
-      }
-    } 
-    //encoding 
-    else {
-      // loop through letters
-      for (i = 0; i < input.length; i++) {
-        if (input[i] === " ") {
-          // add space to result
-          result += input[i];
-        } else {
-          // find number matching letter and add to result
-          result += encodeKey[input[i]];
-        }
-      }
+ function polybius(input, encode = true) {
+    if (!encode && input.split(" ").join("").length % 2 === 1) {
+      return false;
     }
-    return result;
+    return encode
+    ? input.toLowerCase().replace(/[a-z]/g, letter => encodeKey[letter])
+    : input.toLowerCase().replace(/\d{2}/g, num => decodeKey[num])
   }
   return {
     polybius
